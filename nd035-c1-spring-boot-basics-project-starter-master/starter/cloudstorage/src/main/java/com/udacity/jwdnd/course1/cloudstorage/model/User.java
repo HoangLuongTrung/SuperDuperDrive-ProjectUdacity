@@ -1,6 +1,15 @@
 package com.udacity.jwdnd.course1.cloudstorage.model;
 
 public class User {
+    public User(Integer userId, String username, String salt, String password, String firstName, String lastName) {
+        this.userId = userId;
+        this.username = username;
+        this.salt = salt;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     private Integer userId;
     private String username;
     private String salt;
