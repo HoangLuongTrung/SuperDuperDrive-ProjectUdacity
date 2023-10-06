@@ -2,11 +2,11 @@ package com.udacity.jwdnd.course1.cloudstorage.model;
 
 public class File {
     private String fileId;
-    private String fileName;
-    private String contentType;
-    private String fileSize;
-    private Integer userId;
-    private byte[] fileData;
+    private String filename;
+    private String contenttype;
+    private String filesize;
+    private Integer userid;
+    private byte[] filedata;
 
     public String getFileId() {
         return fileId;
@@ -16,43 +16,43 @@ public class File {
         this.fileId = fileId;
     }
 
-    public String getFileName() {
-        return fileName;
+    public String getFilename() {
+        return filename;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
-    public String getContentType() {
-        return contentType;
+    public String getContenttype() {
+        return contenttype;
     }
 
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
+    public void setContenttype(String contenttype) {
+        this.contenttype = contenttype;
     }
 
-    public String getFileSize() {
-        return fileSize;
+    public String getFilesize() {
+        return filesize;
     }
 
-    public void setFileSize(String fileSize) {
-        this.fileSize = fileSize;
+    public void setFilesize(String filesize) {
+        this.filesize = filesize;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getUserid() {
+        return userid;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
 
-    public byte[] getFileData() {
-        return fileData;
+    public byte[] getFiledata() {
+        return filedata;
     }
 
-    public void setFileData(byte[] fileData) {
-        this.fileData = fileData;
+    public void setFiledata(byte[] filedata) {
+        this.filedata = filedata;
     }
 }

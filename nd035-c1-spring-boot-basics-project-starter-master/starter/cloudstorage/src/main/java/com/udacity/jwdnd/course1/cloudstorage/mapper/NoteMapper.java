@@ -12,7 +12,7 @@ public interface NoteMapper {
     void saveNote(Note note);
 
     @Select("SELECT * FROM NOTES WHERE userid = #{userid}")
-     List<Note> getListNotesByUserId(Integer userid);
+    List<Note> getListNotesByUserId(Integer userid);
 
     @Update("UPDATE NOTES SET notetitle = #{notetitle}, notedescription = #{notedescription} WHERE noteid = #{noteid}")
     void updateNote(Note note);

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface CredentialMapper {
-    @Insert("INSERT INTO CREDENTIALS (url, username, key, password, userid) VALUES (#{url}, #{username}, #{key}, #{password}, #{userid}))")
+    @Insert("INSERT INTO CREDENTIALS (url, username, key, password, userid) VALUES (#{url}, #{username}, #{key}, #{password}, #{userid})")
     @Options(useGeneratedKeys = true, keyProperty = "credentialid")
     void saveCredential(Credential credential);
 
@@ -21,6 +21,6 @@ public interface CredentialMapper {
     @Update("UPDATE CREDENTIALS set url = #{url}, username = #{username}, key = #{key}, password= #{password} WHERE credentialid = #{credentialid}")
     void updateCredential(Credential credential);
 
-    @Delete("DELETE FROM CREDENTIALS credentialid = #{credentialid}")
+    @Delete("DELETE FROM CREDENTIALS WHERE credentialid = #{credentialid}")
     int deleteCredential(Integer credentialid);
 }
