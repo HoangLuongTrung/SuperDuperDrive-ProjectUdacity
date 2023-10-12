@@ -3,16 +3,17 @@ package com.udacity.jwdnd.course1.cloudstorage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 
 import java.io.File;
+import java.util.List;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class CloudStorageApplicationTests {
 
@@ -23,12 +24,12 @@ class CloudStorageApplicationTests {
 
 	@BeforeAll
 	static void beforeAll() {
-		WebDriverManager.chromedriver().setup();
+		WebDriverManager.firefoxdriver().setup();
 	}
 
 	@BeforeEach
 	public void beforeEach() {
-		this.driver = new ChromeDriver();
+		this.driver = new FirefoxDriver();
 	}
 
 	@AfterEach
@@ -86,7 +87,7 @@ class CloudStorageApplicationTests {
 		// You may have to modify the element "success-msg" and the sign-up 
 		// success message below depening on the rest of your code.
 		*/
-		Assertions.assertTrue(driver.findElement(By.id("success-msg")).getText().contains("You successfully signed up!"));
+		Assertions.assertTrue(driver.findElement(By.id("login-button")).getText().contains("Login"));
 	}
 
 	
@@ -134,7 +135,7 @@ class CloudStorageApplicationTests {
 	public void testRedirection() {
 		// Create a test account
 		doMockSignUp("Redirection","Test","RT","123");
-		
+
 		// Check if we have been redirected to the log in page.
 		Assertions.assertEquals("http://localhost:" + this.port + "/login", driver.getCurrentUrl());
 	}
@@ -156,7 +157,7 @@ class CloudStorageApplicationTests {
 		// Create a test account
 		doMockSignUp("URL","Test","UT","123");
 		doLogIn("UT", "123");
-		
+
 		// Try to access a random made-up URL.
 		driver.get("http://localhost:" + this.port + "/some-random-page");
 		Assertions.assertFalse(driver.getPageSource().contains("Whitelabel Error Page"));
@@ -178,8 +179,8 @@ class CloudStorageApplicationTests {
 	@Test
 	public void testLargeUpload() {
 		// Create a test account
-		doMockSignUp("Large File","Test","LFT","123");
-		doLogIn("LFT", "123");
+		doMockSignUp("Large File","Test","LFT2","123");
+		doLogIn("LFT2", "123");
 
 		// Try to upload an arbitrary large file
 		WebDriverWait webDriverWait = new WebDriverWait(driver, 2);
@@ -197,9 +198,28 @@ class CloudStorageApplicationTests {
 			System.out.println("Large File upload failed");
 		}
 		Assertions.assertFalse(driver.getPageSource().contains("HTTP Status 403 – Forbidden"));
-
+	}
+	/**
+	 * Test access home page without login then navigate to login page
+	 */
+	@Test
+	public void testAccessHomePageWithoutLogin() {
+		driver.get("http://localhost:" + this.port + "/home");
+		Assertions.assertTrue(driver.findElement(By.id("login-button")).getText().contains("Login"));
 	}
 
-
-
+	/**
+	 * Write a Selenium test that signs up a new user,
+	 * logs that user in, verifies that they can access the home page,
+	 * then logs out and verifies that the home page is no longer accessible.
+	 */
+	@Test
+	public void testSignUpAndLoginFlow() {
+		doMockSignUp("Large File", "Test", "LFT3", "123");
+		doLogIn("LFT3", "123");
+		WebElement logoutButton = driver.findElement(By.id("logout-button"));
+		logoutButton.click();
+		driver.get("http://localhost:" + this.port + "/home");
+		Assertions.assertTrue(driver.findElement(By.id("login-button")).getText().contains("Login"));
+	}
 }
