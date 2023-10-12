@@ -23,6 +23,17 @@
                 <span>File is exist</span>
                 <span>Click <a th:href="@{'/home'}">here</a> to continue.</span>
             </div>
+            <div class="alert alert-danger fill-parent" th:if="${param.noteExist}">
+                <h1 class="display-5">Action fail!!</h1>
+                <span>Note Title is exist</span>
+                <span>Click <a th:href="@{'/home'}">here</a> to continue.</span>
+            </div>
+            <div class="alert alert-danger fill-parent" th:if="${param.credentialExist}">
+                <h1 class="display-5">Action fail!!</h1>
+                <span>Username is exist</span>
+                <span>Click <a th:href="@{'/home'}">here</a> to continue.</span>
+            </div>
+
             <div class="alert alert-danger fill-parent" th:if="${param.notUploadYet}">
                 <h1 class="display-5">Not Upload file yet!!</h1>
                 <span>Please select file</span>

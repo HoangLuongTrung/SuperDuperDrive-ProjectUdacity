@@ -36,7 +36,7 @@ public class SignUpController {
         if (error == null) {
             int data = userService.createNewUser(user);
             model.addAttribute("signUpSuccess", true);
-            return "redirect:/login";
+            return "sign-up-success";
         } else {
             model.addAttribute("signUpFail", error);
         }

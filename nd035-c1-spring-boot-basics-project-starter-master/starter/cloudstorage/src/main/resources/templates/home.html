@@ -136,7 +136,7 @@
                                 <tbody>
                                 <tr th:each="credential : ${credentials}">
                                     <td>
-                                        <button id="edit-credential-button" type="button" class="btn btn-success" th:onclick="javascript:showCredentialModal([[${credential}]])">Edit</button>
+                                        <button id="edit-credential-button" type="button" class="btn btn-success" th:onclick="javascript:showCredentialModal([[${credential}]], [[${encryptionService.decryptValue(credential.getPassword(),credential.getKey())}]])">Edit</button>
                                         <a id="delete-credential-button" class="btn btn-danger" th:href="@{/home/credential/delete(id=${credential.credentialid})}">Delete</a>
                                     </td>
                                     <th scope="row" th:text="${credential.url}"></th>
@@ -190,6 +190,7 @@
         <script th:src="@{/js/popper.min.js}"></script>
         <script th:src="@{/js/bootstrap.min.js}"></script>
 
+
         <!--For opening the note modal-->
         <script type="text/javascript">
             // For opening the note modal
@@ -202,12 +203,12 @@
             }
 
             // For opening the credentials modal
-            function showCredentialModal(credential) {
+            function showCredentialModal(credential, password) {
                 console.log("credential: ", credential);
                 $('#credential-id').val(credential?.credentialid ? credential?.credentialid : '');
                 $('#credential-url').val(credential?.url ? credential?.url : '');
                 $('#credential-username').val(credential?.username ? credential?.username : '');
-                $('#credential-password').val(credential?.password ? credential?.password : '');
+                $('#credential-password').val(credential?.password ? password : '');
                 $('#credentialModal').modal('show');
             }
         </script>
